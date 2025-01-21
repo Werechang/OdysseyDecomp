@@ -188,7 +188,7 @@ def common_include_order(c, path, is_header):
                          "Wrong order for includes: Found \"game\"-include outside of expected block!", path): return
                 order = 2
             else:
-                FAIL("This file is not allowed to be included with <>!", line, path)
+                FAIL("This file is not allowed to be included with \"file\"!", line, path)
                 return
         else:
             FAIL("Unknown include format", line, path)
@@ -255,6 +255,8 @@ def common_sead_math_template(c, path):
             if "using" in line or "typedef" in line:
                 continue
             if "sead::Buffer" in line:  # probably needs more exceptions at some point
+                continue
+            if "Vector3CalcCommon" in line:
                 continue
             FAIL("Use short sead types: sead::Vector3f, sead::Mathi and similar!", line, path)
 
